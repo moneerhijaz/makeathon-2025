@@ -1,0 +1,8 @@
+how to update online repo
+
+git add --all
+git commit -m 'any name for the commit'
+git push --all
+
+to pull
+git pull
