@@ -35,7 +35,7 @@ void setup() {
   pinMode(IN4, OUTPUT);
 }
 
-int speed = 255;
+int speed = 70;
 
 void SpinForward(int INA, int INB, int PWM, int speed)
 {
@@ -55,6 +55,12 @@ void StopRotation(int INA, int INB)
 {
     digitalWrite(INA, LOW);
     digitalWrite(INB, LOW);
+}
+
+void StopAll()
+{
+  StopRotation(IN1, IN2);
+  StopRotation(IN3, IN4);
 }
 
 void loop() {
@@ -81,12 +87,18 @@ void loop() {
   // digitalWrite(IN4, LOW);
   // analogWrite(ENB, 255);
 
-  if (ir1_value < ir3_value){ // turn right
-    SpinForward(IN1, IN2, ENA, speed);
-    StopRotation(IN3, IN4);
-  }else if(ir1_value > ir3_value){ // turn left
+  if(ir1_value < ir3_value){ // turn right
     SpinForward(IN3, IN4, ENB, speed);
-    StopRotation(IN1, IN2);
+    SpinBackward(IN1, IN2, ENA, speed);
+        SpinBackward(IN1, IN2, ENA, speed);
+
+    delay(20);
+  }else if(ir1_value > ir3_value){ // turn left
+    SpinForward(IN1, IN2, ENA, speed);
+    SpinBackward(IN3, IN4, ENB, speed);
+        SpinBackward(IN3, IN4, ENB, speed);
+
+    delay(20);
   }else if(ir1_value == 1 && ir2_value == 1 && ir3_value == 1 && ir4_value == 1){
     StopRotation(IN1, IN2);
     StopRotation(IN3, IN4);
