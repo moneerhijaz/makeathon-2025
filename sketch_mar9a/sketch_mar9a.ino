@@ -36,6 +36,8 @@ void setup() {
   int topSpeed = 255;
 }
 
+int speed = 255;
+
 void SpinForward(int INA, int INB, int PWM, int speed)
 {
     digitalWrite(INA, LOW);
@@ -71,12 +73,13 @@ void loop() {
   //int leftSpeed = topSpeed;
   //int rightSpeed = topSpeed;
 
-  if (IR1_value > IR3_value){ //
-
-  }else if(IR1_value < IR3_value){
-
-  }else if(IR1_value == IR3_value){
-
+  if (IR1_value > IR3_value){ // turn right
+    SpinForward(IN1, IN2, ENA, speed);
+  }else if(IR1_value < IR3_value){ // turn left
+    SpinForward(IN3, IN4, ENB, speed);
+  }else if(IR1_value == IR3_value){ // move forward
+    SpinForward(IN1, IN2, ENA, speed);
+    SpinForward(IN3, IN4, ENB, speed);
   }
 
 }
